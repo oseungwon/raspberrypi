@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{{title}}</title>	
+		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	<Script>
+		var today = new Date();
+		window.onload = function() {
+			cDate.innerHTML = today.getFullYear() + "년" + (today.getMonth()+1) + "월" + today.getDate() + "일";
+		}
+	
+	</Script>
+	</head>
+	<body>
+		<u1>
+			<li>클라이언트 날짜: <span id='cDate'></span></li>
+			<li>서버날짜: <span>{{today}}</span></li>
+			<li><a href="/local">원주날씨</a></li>
+			<li><a href="/short?x=74&y=121">문막초단기</a></li>
+		
+		</u1>
+	
+	
+	</body>
+
+</html>
