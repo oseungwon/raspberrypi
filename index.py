@@ -1,5 +1,5 @@
-from flask import Flask, request
-from flask import render_template
+from flask import Flask, request #flask: 파이썬의 라이브러리
+from flask import render_template #import: 라이브러리 호출
 from urllib.parse import urlencode, unquote
 import requests
 import json
@@ -7,28 +7,28 @@ import datetime
 import pymysql
 
 app= Flask(__name__)
-db=pymysql.connect(host='localhost',user='root',password='1234',db='weather',charset='utf8')
-@app.route("/")
-def home():
-	today = datetime.datetime.today()
-	daystr = str(today.year) +"년" + str(today.month) +"월"+str(today.day) +"일"
-	return render_template("index.html",title="승원이의 성장일기",today=daystr)
+db=pymysql.connect(host='localhost',user='root',password='1234',db='weather',charset='utf8') #mysql 설정
+@app.route("/") #웹페이지 설정
+def home(): # 합수
+	today = datetime.datetime.today() # today변수에 오늘 시간 저장
+	daystr = str(today.year) +"년" + str(today.month) +"월"+str(today.day) +"일" # dayst변수에 오늘 연월일 저장
+	return render_template("index.html",title="승원이의 성장일기",today=daystr) #웹페이지에 저장된 값을 출력
 
-@app.route("/local")
-def local():
-	cur=db.cursor()
-	cur.execute("Select level3, x, y From localxy Where level2='원주시' and level3!=''")
-	rows=cur.fetchall()
-	dongs =[]
+@app.route("/local") #local웹페이지 설정
+def local():# 합수
+	cur=db.cursor() #cur 변수에 db.cursor 값을 저장
+	cur.execute("Select level3, x, y From localxy Where level2='원주시' and level3!=''") # cur.execute에 원주시의 동,x,y값을 저장
+	rows=cur.fetchall()# rows에cur.fetchall를 저장
+	dongs =[] # dongs의 값을 저장
 
-	for row in rows:
-		dong=[]
-		dong.append(row[0])
-		dong.append(row[1])
-		dong.append(row[2])
-		dongs.append(dong)
-	print(dongs)
-	return render_template("local.html",dong_list=dongs)
+	for row in rows: #반복문
+		dong=[] # dongs안에 리스트
+		dong.append(row[0]) # dong 값 할당
+		dong.append(row[1]) # x 값 할당
+		dong.append(row[2]) # y 값 할당
+		dongs.append(dong)  # dong 값이 dongs에 할당
+	print(dongs) #dongs 출력
+	return render_template("local.html",dong_list=dongs) #웹페이지에 dong 출력
 	
 
 @app.route("/weather")
